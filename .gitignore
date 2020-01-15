@@ -1,0 +1,8 @@
+# Dotenv configuration
+.env
+
+# Visual Studio Code
+.vscode
+
+# WebStorm Code
+.idea
