@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
+    "migrate": "node src/database/migration.js",
+    "seed": "node src/database/seeder.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bijen Maharjan <bijenmaharjan@lftechnology.com>",

@@ -10,7 +10,7 @@ userValidate = (fields) => {
     firstName: joi.string().max(255).required(),
     lastName: joi.string().max(255).required(),
     email: joi.string().max(255).email().required(),
-    password: joi.string().max(255).required(),
+    password: joi.string().min(6).max(255).required(),
   });
 
   return schema.validate(fields);
