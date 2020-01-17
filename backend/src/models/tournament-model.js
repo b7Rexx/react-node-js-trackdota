@@ -1,13 +1,13 @@
-const Model = require('./index');
+const Model = require('./model');
 
-class Game extends Model {
+class Tournament extends Model {
   constructor() {
     super();
     this.modelDefinition();
   }
 
   modelDefinition() {
-    return this.sequelizeInit.define('games', {
+    return this.sequelizeInit.define('tournaments', {
       id: {
         type: this.Sequelize.INTEGER,
         primaryKey: true,
@@ -15,6 +15,7 @@ class Game extends Model {
         allowNull: false,
         unique: true,
       },
+      title: this.Sequelize.STRING(1024),
       detail: {
         type: this.Sequelize.TEXT,
         allowNull: true
@@ -27,35 +28,18 @@ class Game extends Model {
         type: this.Sequelize.DATE,
         allowNull: true
       },
-      firsTeam: {
-        type: this.Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'teams',
-          key: 'id'
-        }
-      },
-      secondTeam: {
-        type: this.Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'teams',
-          key: 'id'
-        }
-      },
-
-      tournamentId: {
+      createdBy: {
         type: this.Sequelize.INTEGER,
         references: {
           model: {
-            tableName: 'tournaments',
+            tableName: 'users',
           },
-          key: 'id',
-          allowNull: false,
-        }
+          key: 'id'
+        },
+        allowNull: false,
       },
     });
   }
 }
 
-module.exports = new Game();
+module.exports = new Tournament();

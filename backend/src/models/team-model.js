@@ -1,4 +1,4 @@
-const Model = require('./index');
+const Model = require('./model');
 
 class Team extends Model {
   constructor() {

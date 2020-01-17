@@ -1,4 +1,4 @@
-const Game = require('../models/game.model').modelDefinition();
+const Game = require('../models/game-model').modelDefinition();
 
 class GameQuery {
   allGames = () => {

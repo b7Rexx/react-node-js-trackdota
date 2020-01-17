@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const TournamentController = require('./../controllers/tournament.controller');
+const TournamentController = require('../controllers/tournament-controller');
 
 router.route('/')
 //GET api/users

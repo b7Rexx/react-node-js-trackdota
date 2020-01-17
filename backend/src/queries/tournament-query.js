@@ -1,4 +1,4 @@
-const Tournament = require('../models/tournament.model').modelDefinition();
+const Tournament = require('../models/tournament-model').modelDefinition();
 
 class TournamentQuery {
   allTournaments = () => {

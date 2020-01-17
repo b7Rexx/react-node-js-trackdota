@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const GameController = require('./../controllers/game.controller');
+const GameController = require('../controllers/game-controller');
 
 router.route('/')
 //GET api/users

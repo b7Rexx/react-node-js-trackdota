@@ -1,18 +1,7 @@
-import {LOGIN_STATUS} from "./../constants/action-types";
+import {combineReducers} from "redux";
+import userReducer from "./user-reducer";
 
-const initialState = {
-  data: {},
-  error: {},
-  loginStatus: false,
-};
+export default combineReducers({
+  user: userReducer,
 
-function rootReducer(state = initialState, action) {
-  switch (action.type) {
-    case LOGIN_STATUS:
-      return Object.assign({}, state, {data: action.payload});
-    default:
-      return state;
-  }
-}
-
-export default rootReducer;
+});

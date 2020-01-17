@@ -2,7 +2,7 @@ const bcryptUtils = require('./../utils/bcrypt');
 const validatorUtils = require('./../utils/validator');
 const jwtUtils = require('./../utils/jwt');
 
-const UsersQuery = require('../queries/user.query');
+const UsersQuery = require('../queries/user-query');
 
 const MESSAGE = require('../constants');
 

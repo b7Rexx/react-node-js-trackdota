@@ -1,4 +1,4 @@
-const User = require('../models/user.model').modelDefinition();
+const User = require('../models/user-model').modelDefinition();
 
 class UserQuery {
   allUsers = () => {
@@ -7,6 +7,10 @@ class UserQuery {
 
   createUser = (insertData) => {
     return User.findOrCreate({where: {email: insertData.email}, defaults: insertData});
+  };
+
+  findUserByEmail = (email) => {
+    return User.findOne({where: {email: email}});
   };
 }
 

@@ -1,4 +1,16 @@
 :root {
-  --main-color: coral;
+  --main-color: #4f4943;
   --secondary-color: #eaeaea;
+}
+
+.header {
+  background: var(--main-color);
+}
+
+.header .logo {
+  height: 30px;
+}
+
+.logo img {
+  height: 100%;
 }

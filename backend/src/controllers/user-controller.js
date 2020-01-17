@@ -1,7 +1,7 @@
 const bcryptUtils = require('./../utils/bcrypt');
 const validatorUtils = require('./../utils/validator');
 
-const UserQuery = require('../queries/user.query');
+const UserQuery = require('../queries/user-query');
 
 const MESSAGE = require('../constants');
 
@@ -14,6 +14,7 @@ class UserController {
 
   create = (req, res, next) => {
     const {error, value} = validatorUtils.userValidate(req.body);
+console.log('err>>',value);
     if (error) {
       error.status = 422;
       return next(error);

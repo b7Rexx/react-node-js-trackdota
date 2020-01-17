@@ -1,6 +1,6 @@
 // const validatorUtils = require('./../utils/validator');
 
-const GameQuery = require('../queries/game.query');
+const GameQuery = require('../queries/game-query');
 
 class GameController {
   index = (req, res, next) => {

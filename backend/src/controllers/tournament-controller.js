@@ -1,6 +1,6 @@
 // const validatorUtils = require('./../utils/validator');
 
-const TournamentQuery = require('../queries/tournament.query');
+const TournamentQuery = require('../queries/tournament-query');
 
 class TournamentController {
   index = (req, res, next) => {

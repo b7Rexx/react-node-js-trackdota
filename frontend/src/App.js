@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-// import {BrowserRouter as Router, Link, Switch, Route} from 'react-router-dom';
-import Login from './components/login';
 import {connect} from "react-redux";
-import {loginStatus} from "./actions";
+import {BrowserRouter as Router} from "react-router-dom";
+import Header from "./components/header";
 
 const mapStateToProps = state => {
   return state;
@@ -10,21 +9,23 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginStatus: (data) => (dispatch(loginStatus(data))),
+    loginStatus: (data) => (console.log('dispatch')),
   };
 }
 
-class ConnectedApp extends Component {
+class App extends Component {
 
   render() {
     return (
-      <div className='container'>
-        <Login/>
-      </div>
+      <>
+        <Router>
+          <Header/>
+          <div className='container'>
+          </div>
+        </Router>
+      </>
     );
   }
 }
 
-const App = connect(mapStateToProps, mapDispatchToProps)(ConnectedApp);
-
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
