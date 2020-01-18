@@ -1,4 +1,4 @@
-const User = require('../models/user-model').modelDefinition();
+const User = require('../models/user').modelDefinition();
 
 class UserQuery {
   allUsers = () => {
