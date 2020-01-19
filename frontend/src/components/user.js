@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import Header from './layout/header';
 import Login from './pages/login';
 import Register from './pages/register';
+import Profile from "./pages/profile";
 import {connect} from 'react-redux';
 import {clearLogin, clearRegister} from '../actions/user-action';
 import _ from 'lodash';
+import {USER_LOGIN, USER_PROFILE} from "../constants/routes";
 
 const mapStateToProps = state => {
   return state.user;
@@ -30,9 +32,11 @@ class User extends Component {
   getUserBody() {
     switch ((this.props.match.params.action).toLowerCase()) {
       case 'register':
-        return <Register/>;
+        return <EnhancedRegister {...this.props}/>;
+      case 'login':
+        return <EnhancedLogin {...this.props}/>;
       default:
-        return <Login/>;
+        return <EnhancedProfile {...this.props}/>;
     }
   }
 
@@ -43,6 +47,33 @@ class User extends Component {
         {this.getUserBody()}
       </>
     );
+  }
+}
+
+const EnhancedLogin = withProfileRedirect(Login);
+const EnhancedRegister = withProfileRedirect(Register);
+
+const EnhancedProfile = withLoginRedirect(Profile);
+
+function withProfileRedirect(Component) {
+  return function (props) {
+    if (!props.loginState)
+      return <Component {...props}/>;
+    else {
+      props.history.push(USER_PROFILE);
+      return <Profile {...props}/>;
+    }
+  }
+}
+
+function withLoginRedirect(Component) {
+  return function (props) {
+    if (props.loginState)
+      return <Component {...props}/>;
+    else {
+      props.history.push(USER_LOGIN);
+      return <Login {...props}/>;
+    }
   }
 }
 

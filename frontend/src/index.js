@@ -9,7 +9,7 @@ import './styles/media.css';
 
 import App from './App';
 import {Provider} from "react-redux";
-import store from "./store";
+import store from "./store/redux";
 
 /**
  * load env variables

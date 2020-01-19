@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import FormInput from '../react-component/form-input';
 import {formatRoute} from 'react-router-named-routes';
-import {USER_REGISTER} from '../../constants/routes';
+import {USER_PROFILE, USER_REGISTER} from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import {FAILED, LOADING, SUCCESS} from "../../constants/status";
 import {connect} from 'react-redux';
-import {loginAction, loginValidation} from "../../actions/user-action";
+import {loginAction, loginValidation, setUserLogin} from "../../actions/user-action";
 import {loginUser} from "../../api/user-middleware";
 
 const mapStateToProps = state => {
@@ -14,13 +14,17 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loginValidation: data => dispatch(loginValidation(data, function (payload) {
+    loginValidation: (data, that) => dispatch(loginValidation(data, function (payload) {
       if (payload.valid) {
         dispatch(loginAction(payload, LOADING));
         setTimeout(function () {
           loginUser(Object.assign({}, data))
             .then(success => {
               dispatch(loginAction(payload, SUCCESS));
+              dispatch(setUserLogin(success.data));
+              setTimeout(function () {
+                that.props.history.push(USER_PROFILE);
+              }, 500);
             })
             .catch(error => {
               dispatch(loginAction(payload, FAILED));
@@ -40,7 +44,7 @@ class Login extends Component {
       if (item.getAttribute('name'))
         inputValues[item.getAttribute('name')] = item.value;
     });
-    this.props.loginValidation(inputValues);
+    this.props.loginValidation(inputValues, this);
   }
 
   getLoginIcon() {

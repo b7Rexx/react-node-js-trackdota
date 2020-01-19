@@ -6,7 +6,7 @@ import {formatRoute} from 'react-router-named-routes';
 import {connect} from 'react-redux';
 
 const mapStateToProps = state => {
-  return {loginStatus: state.user.loginStatus};
+  return {loginState: state.user.loginState};
 };
 
 function mapDispatchToProps(dispatch) {
@@ -16,7 +16,7 @@ function mapDispatchToProps(dispatch) {
 class Header extends Component {
 
   getUserHeader() {
-    if (this.props.loginStatus)
+    if (this.props.loginState)
       return (
         <ul className='navbar-nav'>
           <li className='nav-item'>
@@ -61,7 +61,7 @@ class Header extends Component {
                   </figure>
                 </Link>
               </li>
-              {this.props.loginStatus ? this.getFavourite() : ''}
+              {this.props.loginState ? this.getFavourite() : ''}
             </ul>
             {this.props.match.path !== formatRoute(USER) ? this.getUserHeader() : ''}
           </div>

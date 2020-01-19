@@ -1,6 +1,7 @@
 import _ from 'lodash';
-import {REGISTER_ACTION, LOGIN_ACTION, CLEAR_LOGIN, CLEAR_REGISTER} from '../constants/action-types';
+import {REGISTER_ACTION, LOGIN_ACTION, CLEAR_LOGIN, CLEAR_REGISTER, SET_LOGIN} from '../constants/action-types';
 import {EMPTY} from '../constants/status';
+import {setUserData, setUserToken} from "../store/local-storage";
 
 export function clearRegister() {
   return {type: CLEAR_REGISTER};
@@ -144,6 +145,12 @@ export function loginValidation(formData, callback) {
 export function loginAction(payload, status) {
   payload.status = status;
   return {type: LOGIN_ACTION, payload};
+}
+
+export function setUserLogin(userData) {
+  setUserToken(userData.token);
+  setUserData(userData.user);
+  return {type: SET_LOGIN, payload: userData.user};
 }
 
 /**
