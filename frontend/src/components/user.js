@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Header from "./layout/header";
-import Login from "./pages/login";
+import Header from './layout/header';
+import Login from './pages/login';
 import Register from './pages/register';
-import {connect} from "react-redux";
-import {clearLogin, clearRegister} from "../actions/user-action";
+import {connect} from 'react-redux';
+import {clearLogin, clearRegister} from '../actions/user-action';
 import _ from 'lodash';
 
 const mapStateToProps = state => {

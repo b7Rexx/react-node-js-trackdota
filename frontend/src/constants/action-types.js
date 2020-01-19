@@ -1,3 +1,4 @@
 export const REGISTER_ACTION = 'REGISTER_ACTION';
+export const LOGIN_ACTION = 'LOGIN_ACTION';
 export const CLEAR_REGISTER = 'CLEAR_REGISTER';
 export const CLEAR_LOGIN = 'CLEAR_LOGIN';

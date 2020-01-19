@@ -74,12 +74,12 @@
   font-size: 20px;
 }
 
-.form-submit input {
+.form-submit button {
   background: var(--temp-color);
   border: none;
 }
 
-.form-submit input:hover, .form-submit input:focus {
+.form-submit button:hover, .form-submit button:focus {
   background: var(--light-color);
   border: none;
 }
@@ -90,4 +90,17 @@
   font-size: 10px;
   color: #D8000C;
   background: #FFD2D2;
+}
+
+.loading {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

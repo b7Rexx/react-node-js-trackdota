@@ -16,7 +16,7 @@ class FormInput extends Component {
                       defaultValue={this.props.defaultValue}
                       placeholder={this.props.placeholder}
         >
-          {this.props.icon ? (<i className={'fa fa-' + this.props.icon}/>) : ''} {this.props.value}
+          {this.props.icon ? (<i className={this.props.icon}/>) : ''} {this.props.value}
         </button>
       );
 
@@ -62,7 +62,7 @@ class FormInput extends Component {
   render() {
     return (
       <>
-        <div className="form-group">
+        <div className='form-group'>
           {this.switchFormInput()}
         </div>
       </>
