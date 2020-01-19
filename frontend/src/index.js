@@ -11,6 +11,13 @@ import App from './App';
 import {Provider} from "react-redux";
 import store from "./store";
 
+/**
+ * load env variables
+ */
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 ReactDOM.render(
   <Provider store={store}>
     <App/>

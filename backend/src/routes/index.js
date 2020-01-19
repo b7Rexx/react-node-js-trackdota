@@ -1,5 +1,5 @@
 const express = require('express');
-const userRoutes = require('./user--route');
+const userRoutes = require('./user-route');
 const authRoutes = require('./auth-route');
 const gameRoutes = require('./game-route');
 const tournamentRoutes = require('./tournament-route');

@@ -6,6 +6,7 @@ router.route('/')
   .get(UsersController.index);
 
 router.route('/create')
+//POST api/users/create
   .post(UsersController.create);
 
 

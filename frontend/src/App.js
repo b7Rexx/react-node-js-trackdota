@@ -10,11 +10,11 @@ const mapStateToProps = state => {
   return state;
 };
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     loginStatus: (data) => (console.log('dispatch')),
   };
-}
+};
 
 class App extends Component {
 

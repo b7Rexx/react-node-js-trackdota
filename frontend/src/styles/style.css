@@ -1,12 +1,15 @@
 :root {
-  --main-color: #131313;
-  --secondary-color: #eaeaea;
+  --text-color: #ffcb9a;
+  --primary-color: #2c3531;
+  --secondary-color: #116466;
+  --temp-color: #d9b08c;
+  --light-color: #d1e8e2;
 }
 
 .bg-wrapper {
   position: fixed;
   z-index: -10;
-  opacity: 0.7;
+  opacity: 0.4;
 }
 
 .bg-wrapper img {
@@ -15,7 +18,7 @@
 }
 
 .header {
-  background: var(--main-color);
+  background: var(--primary-color);
 }
 
 .header .logo {
@@ -31,7 +34,7 @@
 }
 
 .nav-item a {
-  color: var(--secondary-color);
+  color: var(--text-color);
   display: block;
   text-decoration: none;
   padding: 5px 10px;
@@ -39,15 +42,52 @@
 }
 
 .nav-item a:hover {
-  color: var(--secondary-color);
-  box-shadow: 0 0 5px var(--secondary-color);
+  color: var(--text-color);
+  box-shadow: 0 0 5px var(--text-color);
 }
 
-.login-block {
-  color: var(--secondary-color);
-  background: var(--main-color);
+.user-block {
+  color: var(--text-color);
+  background: var(--secondary-color);
   border-radius: 15px;
   min-height: 200px;
   margin-top: 20px;
   padding: 15px;
+}
+
+.link {
+  color: var(--text-color);
+}
+
+.link a {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+.link a:hover {
+  box-shadow: 0 0 5px var(--text-color);
+}
+
+.title {
+  font-size: 20px;
+}
+
+.form-submit input {
+  background: var(--temp-color);
+  border: none;
+}
+
+.form-submit input:hover, .form-submit input:focus {
+  background: var(--light-color);
+  border: none;
+}
+
+.error-message {
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 10px;
+  color: #D8000C;
+  background: #FFD2D2;
 }
