@@ -1,7 +1,14 @@
 import _ from 'lodash';
-import {REGISTER_ACTION, LOGIN_ACTION, CLEAR_LOGIN, CLEAR_REGISTER, SET_LOGIN} from '../constants/action-types';
+import {
+  REGISTER_ACTION,
+  LOGIN_ACTION,
+  CLEAR_LOGIN,
+  CLEAR_REGISTER,
+  SET_LOGIN,
+  LOGOUT_ACTION
+} from '../constants/action-types';
 import {EMPTY} from '../constants/status';
-import {setUserData, setUserToken} from "../store/local-storage";
+import {removeUser, setUserData, setUserToken} from "../store/local-storage";
 
 export function clearRegister() {
   return {type: CLEAR_REGISTER};
@@ -147,10 +154,20 @@ export function loginAction(payload, status) {
   return {type: LOGIN_ACTION, payload};
 }
 
+/**
+ * ser user login in local storage
+ * @param userData
+ * @returns {{payload: *, type: *}}
+ */
 export function setUserLogin(userData) {
   setUserToken(userData.token);
   setUserData(userData.user);
   return {type: SET_LOGIN, payload: userData.user};
+}
+
+export function logoutAction() {
+  removeUser();
+  return {type: LOGOUT_ACTION};
 }
 
 /**

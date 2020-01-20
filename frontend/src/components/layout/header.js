@@ -1,34 +1,41 @@
 import React, {Component} from 'react';
 import logoHeader from '../../assets/logo.png';
-import {HOME, USER, USER_FAVOURITE, USER_LOGIN, USER_PROFILE} from '../../constants/routes';
+import {HOME, USER_FAVOURITE, USER_LOGIN, USER_PROFILE} from '../../constants/routes';
 import {connect} from 'react-redux';
 import NavItem from '../react-component/nav-item';
 import Dropdown from '../react-component/dropdown';
+import {logoutAction} from "../../actions/user-action";
+import {getUserData} from "../../store/local-storage";
 
 const mapStateToProps = state => {
-  return {loginState: state.user.loginState};
+  return {loginState: state.user.loginState, userInfo: getUserData()};
 };
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    logoutAction: () => dispatch(logoutAction())
+  };
 }
 
 class Header extends Component {
 
-  logoutAction() {
-    console.log('logout');
+  logoutAction(e) {
+    e.preventDefault();
+    this.props.logoutAction();
   }
 
   getUserHeader() {
     let userDropdown = [
       {link: 'Profile', to: USER_PROFILE},
-      {link: 'Logout', onClick: this.logoutAction},
+      {link: 'Logout', onClick: (e) => this.logoutAction(e)},
     ];
     if (this.props.loginState)
       return (
         <ul className='navbar-nav'>
           <li>
-            <Dropdown icon='fa fa-user-circle-o' link='User' dropdownContent={userDropdown}/>
+            <Dropdown icon='fa fa-user-circle-o'
+                      link={`${this.props.userInfo.firstName || ''} ${this.props.userInfo.lastName || ''}`}
+                      dropdownContent={userDropdown}/>
           </li>
         </ul>
       );

@@ -10,12 +10,6 @@ const mapStateToProps = state => {
   return state;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginStatus: (data) => (console.log('dispatch')),
-  };
-};
-
 class App extends Component {
 
   render() {
@@ -37,4 +31,4 @@ class App extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

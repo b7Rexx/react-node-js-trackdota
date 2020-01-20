@@ -13,3 +13,8 @@ export function setUserData(user) {
 export function getUserData() {
   return JSON.parse(localStorage.getItem('user'));
 }
+
+export function removeUser() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user');
+}

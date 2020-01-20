@@ -6,10 +6,10 @@ import {Link} from 'react-router-dom';
 import {FAILED, LOADING, SUCCESS} from "../../constants/status";
 import {connect} from 'react-redux';
 import {loginAction, loginValidation, setUserLogin} from "../../actions/user-action";
-import {loginUser} from "../../api/user-middleware";
+import {loginUser} from "../../api/server-fetch";
 
 const mapStateToProps = state => {
-  return state.user.login;
+  return {login:state.user.login};
 };
 
 function mapDispatchToProps(dispatch) {
@@ -48,7 +48,7 @@ class Login extends Component {
   }
 
   getLoginIcon() {
-    switch (this.props.status) {
+    switch (this.props.login.status) {
       case LOADING:
         return 'fa fa-spinner loading';
       case SUCCESS:
@@ -61,8 +61,8 @@ class Login extends Component {
   }
 
   render() {
-    let propsData = this.props.data;
-    let propsError = this.props.error;
+    let propsData = this.props.login.data;
+    let propsError = this.props.login.error;
     return (
       <>
         <div className='row justify-content-center'>

@@ -3,3 +3,5 @@ export const LOGIN_ACTION = 'LOGIN_ACTION';
 export const CLEAR_REGISTER = 'CLEAR_REGISTER';
 export const CLEAR_LOGIN = 'CLEAR_LOGIN';
 export const SET_LOGIN = 'SET_LOGIN';
+export const LOGOUT_ACTION = 'LOGOUT_ACTION';
+export const GET_USER_TOURNAMENT = 'GET_USER_TOURNAMENT';

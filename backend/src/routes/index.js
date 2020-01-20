@@ -9,7 +9,7 @@ const authentication = require('../middlewares/authentication-middleware');
 const router = express.Router();
 
 router.use('/auth', authRoutes);
-router.use('/users', authentication, userRoutes);
+router.use('/users', userRoutes);
 router.use('/game', gameRoutes);
 router.use('/tournament', tournamentRoutes);
 

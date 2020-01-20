@@ -2,7 +2,6 @@ const jwtUtils = require('./../utils/jwt');
 const MESSAGE = require('./../constants');
 
 authentication = (req, res, next) => {
-return  next();
   let token = '';
   if (req.header('Authorization')) token = req.header('Authorization');
   else if (req.header('Token')) token = req.header('Token');
@@ -17,7 +16,7 @@ return  next();
       /**
        * Set auth user id from auth middleware
        */
-      res.set('AuthID', done.id);
+      req.AuthID = done.id;
       next();
     }
   );

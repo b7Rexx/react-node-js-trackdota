@@ -6,10 +6,10 @@ import {USER_LOGIN} from '../../constants/routes';
 import {connect} from 'react-redux';
 import {registerAction, registerValidation} from '../../actions/user-action';
 import {FAILED, SUCCESS, LOADING} from '../../constants/status';
-import {registerUser} from '../../api/user-middleware';
+import {registerUser} from '../../api/server-fetch';
 
 const mapStateToProps = state => {
-  return state.user.register;
+  return {register:state.user.register};
 };
 
 function mapDispatchToProps(dispatch) {
@@ -43,7 +43,7 @@ class Register extends Component {
   }
 
   getRegisterIcon() {
-    switch (this.props.status) {
+    switch (this.props.register.status) {
       case LOADING:
         return 'fa fa-spinner loading';
       case SUCCESS:
@@ -56,8 +56,8 @@ class Register extends Component {
   }
 
   render() {
-    let propsData = this.props.data;
-    let propsError = this.props.error;
+    let propsData = this.props.register.data;
+    let propsError = this.props.register.error;
     return (
       <>
         <div className='row justify-content-center'>

@@ -12,3 +12,11 @@ export function loginUser(inputData) {
   delete inputData.remember;
   return axios.post(SERVER + '/auth/login', inputData);
 }
+
+export function userTournaments(token) {
+  return axios.get(SERVER + '/tournament/user', {
+    headers: {
+      'Authorization': token
+    }
+  });
+}

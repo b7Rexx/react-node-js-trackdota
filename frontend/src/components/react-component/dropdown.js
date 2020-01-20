@@ -8,7 +8,7 @@ class Dropdown extends Component {
         return item.to ? (
           <Link key={index} className='dropdown-item' to={item.to} onClick={item.onClick}>{item.link}</Link>
         ) : (
-          <a key={index} className='dropdown-item' onClick={item.onClick}>{item.link}</a>
+          <a key={index} href={item.link} className='dropdown-item' onClick={item.onClick}>{item.link}</a>
         );
       })
     );

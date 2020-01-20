@@ -14,7 +14,6 @@ class UserController {
 
   create = (req, res, next) => {
     const {error, value} = validatorUtils.userValidate(req.body);
-console.log('err>>',value);
     if (error) {
       error.status = 422;
       return next(error);
