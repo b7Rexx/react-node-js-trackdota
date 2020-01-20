@@ -4,4 +4,6 @@ module.exports = {
   LOGIN_SUCCESS: 'Login Success',
   AUTH_MISSING: 'Missing Auth Token',
   EMAIL_TAKEN: 'Email already exists',
+  TOURNAMENT_CREATED: 'Tournament created successfully',
+  TOURNAMENT_DELETED: 'Tournament deleted successfully',
 };

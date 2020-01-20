@@ -8,6 +8,19 @@ class TournamentQuery {
   tournamentsByUser = (userId) => {
     return Tournament.findAll({where: {createdBy: userId}});
   };
+
+  createTournament = (insertData) => {
+    return Tournament.create(insertData);
+  };
+
+  destroyById = (id) => {
+    /**
+     * remove all reference games before removing tournament
+     */
+
+
+    return Tournament.destroy({where: {id: id}});
+  }
 }
 
 module.exports = new TournamentQuery();

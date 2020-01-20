@@ -125,3 +125,7 @@
 .dropdown > .dropdown-toggle:active {
   pointer-events: none;
 }
+
+.table {
+  color: var(--text-color);
+}

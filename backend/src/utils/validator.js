@@ -30,7 +30,25 @@ loginValidate = (fields) => {
   return schema.validate(fields);
 };
 
+/**
+ *
+ * @param fields
+ * @returns {*}
+ */
+tournamentValidate = (fields) => {
+  const schema = joi.object({
+    title: joi.string().required(),
+    detail: joi.string().allow(null, ''),
+    startDate: joi.date().allow(null, ''),
+    endDate: joi.date().allow(null, ''),
+    createdBy: joi.number().required(),
+  });
+
+  return schema.validate(fields);
+};
+
 module.exports = {
   userValidate,
   loginValidate,
+  tournamentValidate
 };

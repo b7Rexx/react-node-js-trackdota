@@ -6,7 +6,7 @@ import Profile from "./pages/user-tournament";
 import {connect} from 'react-redux';
 import {clearLogin, clearRegister} from '../actions/user-action';
 import _ from 'lodash';
-import {USER_LOGIN, USER_PROFILE, USER_REGISTER} from "../constants/routes";
+import {USER_LOGIN, USER_TOURNAMENT, USER_REGISTER} from "../constants/routes";
 import {Redirect, Route} from "react-router-dom";
 
 const mapStateToProps = state => {
@@ -37,12 +37,12 @@ class User extends Component {
       <>
         <Header {...this.props}/>
         <Route exact path={USER_LOGIN}>
-          {this.props.loginState ? <Redirect to={USER_PROFILE}/> : <Login {...this.props}/>}
+          {this.props.loginState ? <Redirect to={USER_TOURNAMENT}/> : <Login {...this.props}/>}
         </Route>
         <Route exact path={USER_REGISTER}>
-          {this.props.loginState ? <Redirect to={USER_PROFILE}/> : <Register {...this.props}/>}
+          {this.props.loginState ? <Redirect to={USER_TOURNAMENT}/> : <Register {...this.props}/>}
         </Route>
-        <Route exact path={USER_PROFILE}>
+        <Route exact path={USER_TOURNAMENT}>
           {!this.props.loginState ? <Redirect to={USER_LOGIN}/> : <Profile {...this.props}/>}
         </Route>
       </>);

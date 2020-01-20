@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import logoHeader from '../../assets/logo.png';
-import {HOME, USER_FAVOURITE, USER_LOGIN, USER_PROFILE} from '../../constants/routes';
+import {HOME, USER_FAVOURITE, USER_LOGIN, USER_TOURNAMENT} from '../../constants/routes';
 import {connect} from 'react-redux';
 import NavItem from '../react-component/nav-item';
 import Dropdown from '../react-component/dropdown';
@@ -26,7 +26,7 @@ class Header extends Component {
 
   getUserHeader() {
     let userDropdown = [
-      {link: 'Profile', to: USER_PROFILE},
+      {link: 'My Tournaments', to: USER_TOURNAMENT},
       {link: 'Logout', onClick: (e) => this.logoutAction(e)},
     ];
     if (this.props.loginState)

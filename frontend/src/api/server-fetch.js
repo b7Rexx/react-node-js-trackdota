@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {getUserToken} from "../store/local-storage";
 
 const SERVER = process.env.REACT_APP_API_URL;
 
@@ -13,10 +14,29 @@ export function loginUser(inputData) {
   return axios.post(SERVER + '/auth/login', inputData);
 }
 
-export function userTournaments(token) {
+export function userTournaments() {
   return axios.get(SERVER + '/tournament/user', {
     headers: {
-      'Authorization': token
+      'Authorization': getUserToken()
     }
   });
+}
+
+export function addTournament(inputData) {
+  return axios.post(SERVER + '/tournament/create',
+    inputData,
+    {
+      headers: {
+        'Authorization': getUserToken()
+      }
+    });
+}
+
+export function removeTournament(id) {
+  return axios.delete(SERVER + '/tournament/' + id,
+    {
+      headers: {
+        'Authorization': getUserToken()
+      }
+    });
 }

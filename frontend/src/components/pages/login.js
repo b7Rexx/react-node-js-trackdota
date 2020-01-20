@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import FormInput from '../react-component/form-input';
 import {formatRoute} from 'react-router-named-routes';
-import {USER_PROFILE, USER_REGISTER} from '../../constants/routes';
+import {USER_TOURNAMENT, USER_REGISTER} from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import {FAILED, LOADING, SUCCESS} from "../../constants/status";
 import {connect} from 'react-redux';
@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
               dispatch(loginAction(payload, SUCCESS));
               dispatch(setUserLogin(success.data));
               setTimeout(function () {
-                that.props.history.push(USER_PROFILE);
+                that.props.history.push(USER_TOURNAMENT);
               }, 500);
             })
             .catch(error => {
