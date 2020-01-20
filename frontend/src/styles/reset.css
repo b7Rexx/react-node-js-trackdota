@@ -21,3 +21,7 @@ input {
   clear: both;
   display: table;
 }
+
+figure {
+  margin: 0;
+}

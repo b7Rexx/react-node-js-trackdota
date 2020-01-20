@@ -29,7 +29,7 @@ function mapDispatchToProps(dispatch) {
             .catch(error => {
               dispatch(loginAction(payload, FAILED));
             });
-        }, 1000);
+        }, 500);
       }
     })),
   };

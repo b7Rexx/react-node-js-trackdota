@@ -22,7 +22,7 @@
 }
 
 .header .logo {
-  height: 20px;
+  height: 30px;
   margin-right: 10px;
 }
 
@@ -34,7 +34,7 @@
   margin-right: 10px;
 }
 
-.nav-item a {
+.nav-item a, .nav-item {
   color: var(--text-color);
   display: block;
   text-decoration: none;
@@ -104,4 +104,24 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+.dropdown * {
+  color: var(--text-color);
+}
+
+.dropdown > .dropdown-menu {
+  background: var(--primary-color);
+  top: 200%;
+  transition: 0.3s all ease-in-out;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+  top: 100%;
+  margin-top: -1px;
+}
+
+.dropdown > .dropdown-toggle:active {
+  pointer-events: none;
 }
