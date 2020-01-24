@@ -1,42 +1,27 @@
-import axios from 'axios';
-import {getUserToken} from "../store/local-storage";
-
-const SERVER = process.env.REACT_APP_API_URL;
+import {axiosFetch, axiosFetchWithToken} from './axios.config';
 
 export function registerUser(inputData) {
-  delete inputData.profileImage;
   delete inputData.confirmPassword;
-  return axios.post(SERVER + '/users/create', inputData);
-}
-
-export function loginUser(inputData) {
-  delete inputData.remember;
-  return axios.post(SERVER + '/auth/login', inputData);
-}
-
-export function userTournaments() {
-  return axios.get(SERVER + '/tournament/user', {
+  return axiosFetch.post('/users/create', inputData,{
     headers: {
-      'Authorization': getUserToken()
+      'content-type': 'multipart/form-data;'
     }
   });
 }
 
+export function loginUser(inputData) {
+  delete inputData.remember;
+  return axiosFetch.post('/auth/login', inputData);
+}
+
+export function userTournaments() {
+  return axiosFetchWithToken.get('/tournament/user');
+}
+
 export function addTournament(inputData) {
-  return axios.post(SERVER + '/tournament/create',
-    inputData,
-    {
-      headers: {
-        'Authorization': getUserToken()
-      }
-    });
+  return axiosFetchWithToken.post('/tournament/create', inputData);
 }
 
 export function removeTournament(id) {
-  return axios.delete(SERVER + '/tournament/' + id,
-    {
-      headers: {
-        'Authorization': getUserToken()
-      }
-    });
+  return axiosFetchWithToken.delete('/tournament/' + id);
 }

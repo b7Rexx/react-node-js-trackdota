@@ -54,17 +54,18 @@ class Header extends Component {
   }
 
   render() {
+    console.log('render header');
     return (
       <div className='header'>
         <nav className='navbar navbar-expand-lg'>
-          <div className='collapse navbar-collapse'>
+          {/*<div className='collapse navbar-collapse'>*/}
             <ul className='navbar-nav mr-auto'>
               <NavItem to={HOME} className=''
                        link={<figure className='logo'><img src={logoHeader} alt='logo'/></figure>}/>
               {this.props.loginState ? this.getFavourite() : ''}
             </ul>
             {this.getUserHeader()}
-          </div>
+          {/*</div>*/}
         </nav>
       </div>
     );

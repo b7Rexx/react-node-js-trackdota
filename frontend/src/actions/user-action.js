@@ -8,7 +8,7 @@ import {
   LOGOUT_ACTION
 } from '../constants/action-types';
 import {EMPTY} from '../constants/status';
-import {removeUser, setUserData, setUserToken} from "../store/local-storage";
+import {removeUser, setRememberUser, setUserData, setUserToken} from "../store/local-storage";
 
 export function clearRegister() {
   return {type: CLEAR_REGISTER};
@@ -31,29 +31,38 @@ export function registerValidation(formData, callback) {
     valid: true,
     status: EMPTY
   };
+
+  /**
+   * multipart parse to object
+   * @type {object}
+   */
+  let formValidation = {};
+  for (let pair of formData.entries()) {
+    formValidation[pair[0]] = pair[1];
+  }
   // validation
-  Object.keys(formData).forEach(function (value) {
+  Object.keys(formValidation).forEach(function (value) {
     switch (value) {
       case 'firstName':
-        if (_.isEmpty(formData.firstName)) {
+        if (_.isEmpty(formValidation.firstName)) {
           payload.valid = false;
           payload.error.firstName = 'firstName is required';
         } else
           payload.error.firstName = null;
         break;
       case 'lastName':
-        if (_.isEmpty(formData.lastName)) {
+        if (_.isEmpty(formValidation.lastName)) {
           payload.valid = false;
           payload.error.lastName = 'lastName is required';
         } else
           payload.error.lastName = null;
         break;
       case 'email':
-        if (_.isEmpty(formData.email)) {
+        if (_.isEmpty(formValidation.email)) {
           payload.valid = false;
           payload.error.email = 'email is required';
         } else {
-          if (!emailValidation(formData.email)) {
+          if (!emailValidation(formValidation.email)) {
             payload.valid = false;
             payload.error.email = 'email is invalid';
           } else
@@ -61,11 +70,11 @@ export function registerValidation(formData, callback) {
         }
         break;
       case 'password':
-        if (_.isEmpty(formData.password)) {
+        if (_.isEmpty(formValidation.password)) {
           payload.valid = false;
           payload.error.password = 'password is required';
         } else {
-          if (formData.password !== formData.confirmPassword) {
+          if (formValidation.password !== formValidation.confirmPassword) {
             payload.valid = false;
             payload.error.password = 'comfirm password must match';
           } else
@@ -73,7 +82,7 @@ export function registerValidation(formData, callback) {
         }
         break;
       case 'confirmPassword':
-        if (_.isEmpty(formData.confirmPassword)) {
+        if (_.isEmpty(formValidation.confirmPassword)) {
           payload.valid = false;
           payload.error.confirmPassword = 'confirmPassword is required';
         } else
@@ -157,12 +166,14 @@ export function loginAction(payload, status) {
 /**
  * ser user login in local storage
  * @param userData
+ * @param remember
  * @returns {{payload: *, type: *}}
  */
-export function setUserLogin(userData) {
+export function setUserLogin(userData, remember) {
   setUserToken(userData.token);
   setUserData(userData.user);
-  return {type: SET_LOGIN, payload: userData.user};
+  setRememberUser(remember);
+  return {type: SET_LOGIN, remember: remember, payload: userData.user};
 }
 
 export function logoutAction() {

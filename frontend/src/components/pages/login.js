@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import FormInput from '../react-component/form-input';
 import {formatRoute} from 'react-router-named-routes';
-import {USER_TOURNAMENT, USER_REGISTER} from '../../constants/routes';
+import {USER_REGISTER, USER_TOURNAMENT} from '../../constants/routes';
 import {Link} from 'react-router-dom';
 import {FAILED, LOADING, SUCCESS} from "../../constants/status";
 import {connect} from 'react-redux';
@@ -9,7 +9,7 @@ import {loginAction, loginValidation, setUserLogin} from "../../actions/user-act
 import {loginUser} from "../../api/server-fetch";
 
 const mapStateToProps = state => {
-  return {login:state.user.login};
+  return {login: state.user.login};
 };
 
 function mapDispatchToProps(dispatch) {
@@ -20,13 +20,14 @@ function mapDispatchToProps(dispatch) {
         setTimeout(function () {
           loginUser(Object.assign({}, data))
             .then(success => {
+              dispatch(setUserLogin(success.data, payload.data.remember));
               dispatch(loginAction(payload, SUCCESS));
-              dispatch(setUserLogin(success.data));
               setTimeout(function () {
                 that.props.history.push(USER_TOURNAMENT);
               }, 500);
             })
             .catch(error => {
+              payload.error = error.response.data.error;
               dispatch(loginAction(payload, FAILED));
             });
         }, 500);
@@ -39,25 +40,22 @@ function mapDispatchToProps(dispatch) {
 class Login extends Component {
   loginValidation(e) {
     e.preventDefault();
+    if (this.props.login.status === LOADING)
+      return false;
     let inputValues = [];
     Object.values(e.target.getElementsByTagName('input')).forEach((item) => {
-      if (item.getAttribute('name'))
-        inputValues[item.getAttribute('name')] = item.value;
+      if (item.getAttribute('name')) {
+        if (item.checked)
+          inputValues[item.getAttribute('name')] = true;
+        else
+          inputValues[item.getAttribute('name')] = item.value;
+      }
     });
     this.props.loginValidation(inputValues, this);
   }
 
-  getLoginIcon() {
-    switch (this.props.login.status) {
-      case LOADING:
-        return 'fa fa-spinner loading';
-      case SUCCESS:
-        return 'fa fa-check';
-      case FAILED:
-        return 'fa fa-times';
-      default:
-        return 'fa fa-key';
-    }
+  rememberChangeHandler(e) {
+    e.target.value = e.target.checked;
   }
 
   render() {
@@ -76,10 +74,11 @@ class Login extends Component {
                            placeholder='Email here'/>
                 <FormInput label='Password' name='password' error={propsError.password}
                            defaultValue={propsData.password} type='password'/>
-                <FormInput label='Remember Me' name='remember' error={propsError.remember}
-                           defaultValue={propsData.remember} type='checkbox'/>
+                <FormInput label='Remember Me' name='remember' error={propsError.remember} type='checkbox'
+                           onChange={this.rememberChangeHandler}/>
                 <div className='form-submit'>
-                  <FormInput type='submit' icon={this.getLoginIcon()} value='Login' className='login-button'/>
+                  <FormInput type='submit' icon='fa fa-key' getIcon={this.props.login.status} value='Login'
+                             className='login-button'/>
                 </div>
               </form>
               <br/>

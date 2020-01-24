@@ -8,8 +8,9 @@ import {
 } from "../../actions/user-tournament";
 import {addTournament, removeTournament, userTournaments} from "../../api/server-fetch";
 import Table from "../react-component/table";
-import FormInput from "../react-component/form-input";
 import {FAILED, LOADING, SUCCESS} from "../../constants/status";
+import "react-datepicker/dist/react-datepicker.css";
+import FormInput from "../react-component/form-input";
 
 const mapStateToProps = state => {
   return {userTournament: state.userTournament};
@@ -44,25 +45,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 class UserTournament extends Component {
-
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.userTournament.fetchStatus) {
       userTournaments().then(success => {
         this.props.getUserTournaments(success.data);
       });
-    }
-  }
-
-  getIcon() {
-    switch (this.props.userTournament.formData.status) {
-      case LOADING:
-        return 'fa fa-spinner loading';
-      case SUCCESS:
-        return 'fa fa-check';
-      case FAILED:
-        return 'fa fa-times';
-      default:
-        return 'fa fa-plus';
     }
   }
 
@@ -90,6 +77,8 @@ class UserTournament extends Component {
   }
 
   render() {
+    let propsData = this.props.userTournament.formData.data;
+    let propsError = this.props.userTournament.formData.error;
     const tableConfig = [
       {name: 'Title', key: 'title', type: 'string'},
       {name: 'Start', key: 'startDate', type: 'date'},
@@ -97,8 +86,6 @@ class UserTournament extends Component {
       {name: 'Edit', key: 'id', type: 'action', action: 'editHandler'},
       {name: 'Remove', key: 'id', type: 'action', action: 'removeHandler'},
     ];
-    let propsData = this.props.userTournament.formData.data;
-    let propsError = this.props.userTournament.formData.error;
     return (
       <>
         <div className="row">
@@ -115,12 +102,12 @@ class UserTournament extends Component {
               <form onSubmit={(e) => this.addTournamentHandler(e)}>
                 <FormInput name='title' label='Title' defaultValue={propsData.title} error={propsError.title}/>
                 <FormInput name='detail' label='Detail' defaultValue={propsData.detail} error={propsError.detail}/>
-                <FormInput name='startDate' label='Start Date' type='date' defaultValue={propsData.startDate}
-                           error={propsError.startDate}/>
+                <FormInput name='startDate' label='Start Date' type='date'
+                           defaultValue={propsData.startDate} error={propsError.startDate}/>
                 <FormInput name='endDate' label='End Date' type='date' defaultValue={propsData.endDate}
                            error={propsError.endDate}/>
                 <div className='form-submit'>
-                  <FormInput type='submit' icon={this.getIcon()} value='Submit'/>
+                  <FormInput type='submit' getIcon={this.props.userTournament.formData.status} value='Submit'/>
                 </div>
               </form>
             </div>

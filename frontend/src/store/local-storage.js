@@ -6,6 +6,14 @@ export function getUserToken() {
   return localStorage.getItem('token');
 }
 
+export function setRememberUser(status) {
+  localStorage.setItem('remember', status);
+}
+
+export function getRememberUser() {
+  return localStorage.getItem('remember');
+}
+
 export function setUserData(user) {
   localStorage.setItem('user', JSON.stringify(user));
 }
@@ -17,4 +25,5 @@ export function getUserData() {
 export function removeUser() {
   localStorage.removeItem('token');
   localStorage.removeItem('user');
+  localStorage.removeItem('remember');
 }

@@ -32,15 +32,19 @@ class Table extends Component {
       return ' - ';
     switch ((td.type || 'string').toLowerCase()) {
       case 'date':
+        if (!tr[td.key])
+          return ' - ';
         let date = Carbon.parse(tr[td.key]);
         return date.format('YYYY-MM-DD');
       case 'action':
         if (td.hasOwnProperty('action'))
           if (typeof this.props[td.action] === 'function') {
             if (tr.hasOwnProperty(td.key))
-              return <button className='btn btn-secondary btn-sm' onClick={(e) => this.props[td.action](e, tr[td.key])}>{td.name}</button>;
+              return <button className='btn btn-secondary btn-sm'
+                             onClick={(e) => this.props[td.action](e, tr[td.key])}>{td.name}</button>;
             else
-              return <button className='btn btn-secondary btn-sm'onClick={(e) => this.props[td.action](e)}>{td.name}</button>;
+              return <button className='btn btn-secondary btn-sm'
+                             onClick={(e) => this.props[td.action](e)}>{td.name}</button>;
           }
         return <button className='btn btn-secondary btn-sm'>{td.name}</button>;
       default:

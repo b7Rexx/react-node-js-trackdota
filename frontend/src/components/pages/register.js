@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import FormInput from '../react-component/form-input';
-import {Link} from 'react-router-dom';
-import {formatRoute} from 'react-router-named-routes';
 import {USER_LOGIN} from '../../constants/routes';
 import {connect} from 'react-redux';
 import {registerAction, registerValidation} from '../../actions/user-action';
@@ -9,23 +7,26 @@ import {FAILED, SUCCESS, LOADING} from '../../constants/status';
 import {registerUser} from '../../api/server-fetch';
 
 const mapStateToProps = state => {
-  return {register:state.user.register};
+  return {register: state.user.register};
 };
 
 function mapDispatchToProps(dispatch) {
   return {
-    registerValidation: data => dispatch(registerValidation(data, function (payload) {
+    registerValidation: (data, that) => dispatch(registerValidation(data, function (payload) {
+
       if (payload.valid) {
         dispatch(registerAction(payload, LOADING));
         setTimeout(function () {
-          registerUser(Object.assign({}, data))
+          registerUser(data)
             .then(success => {
               dispatch(registerAction(payload, SUCCESS));
+              that.props.history.push(USER_LOGIN);
             })
             .catch(error => {
+              payload.error = error.response.data.error;
               dispatch(registerAction(payload, FAILED));
             });
-        }, 1000);
+        }, 500);
       }
     })),
   };
@@ -34,25 +35,21 @@ function mapDispatchToProps(dispatch) {
 class Register extends Component {
   registerValidation(e) {
     e.preventDefault();
-    let inputValues = [];
-    Object.values(e.target.getElementsByTagName('input')).forEach((item) => {
-      if (item.getAttribute('name'))
-        inputValues[item.getAttribute('name')] = item.value;
-    });
-    this.props.registerValidation(inputValues);
-  }
 
-  getRegisterIcon() {
-    switch (this.props.register.status) {
-      case LOADING:
-        return 'fa fa-spinner loading';
-      case SUCCESS:
-        return 'fa fa-check';
-      case FAILED:
-        return 'fa fa-times';
-      default:
-        return 'fa fa-user-plus';
-    }
+    if (this.props.register.status === LOADING)
+      return false;
+    let inputValues = new FormData();
+    Object.values(e.target.getElementsByTagName('input')).forEach((item) => {
+      if (item.getAttribute('type') === 'file') {
+        if (item.value) {
+          inputValues.append(item.getAttribute('name'), item.files[0]);
+        }
+      } else {
+        if (item.getAttribute('name'))
+          inputValues.append(item.getAttribute('name'), item.value);
+      }
+    });
+    this.props.registerValidation(inputValues, this);
   }
 
   render() {
@@ -82,8 +79,7 @@ class Register extends Component {
                     <FormInput label='Email' name='email' error={propsError.email} defaultValue={propsData.email}/>
                   </div>
                   <div className='col-sm-12 col-md-6'>
-                    <FormInput label='Profile Image' type='file' name='profileImage' error={propsError.profileImage}
-                               defaultValue={propsData.profileImage}/>
+                    <FormInput label='Profile Image' type='file' name='profileImage' error={propsError.profileImage}/>
                   </div>
                 </div>
                 <div className='row'>
@@ -97,13 +93,10 @@ class Register extends Component {
                   </div>
                 </div>
                 <div className='form-submit'>
-                  <FormInput type='submit' icon={this.getRegisterIcon()} value='Register' className='login-button'/>
+                  <FormInput type='submit' icon='fa fa-user-plus' getIcon={this.props.register.status}
+                             value='Register' className='login-button'/>
                 </div>
               </form>
-              <br/>
-              <div className='link text-center'>
-                <Link to={formatRoute(USER_LOGIN)}><i className='fa fa-key'/> Login</Link>
-              </div>
             </div>
 
           </div>

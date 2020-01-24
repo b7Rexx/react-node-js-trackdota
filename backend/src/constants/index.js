@@ -6,4 +6,5 @@ module.exports = {
   EMAIL_TAKEN: 'Email already exists',
   TOURNAMENT_CREATED: 'Tournament created successfully',
   TOURNAMENT_DELETED: 'Tournament deleted successfully',
+  MULTER_PARSE_ERROR: '[multer] parse error',
 };

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import uuidv1 from 'uuid/v1';
+import {FAILED, LOADING, SUCCESS} from "../../constants/status";
 
 class FormInput extends Component {
   getLabel() {
@@ -16,7 +17,7 @@ class FormInput extends Component {
                       defaultValue={this.props.defaultValue}
                       placeholder={this.props.placeholder}
         >
-          {this.props.icon ? (<i className={this.props.icon}/>) : ''} {this.props.value}
+          <i className={this.getSubmitLoader()}/> {this.props.value}
         </button>
       );
 
@@ -26,6 +27,10 @@ class FormInput extends Component {
                    name={this.props.name}
                    defaultValue={this.props.defaultValue}
                    placeholder={this.props.placeholder}
+                   onChange={(e) => {
+                     if (typeof this.props.onChange === 'function')
+                       this.props.onChange(e);
+                   }}
       />
     );
   }
@@ -33,6 +38,19 @@ class FormInput extends Component {
   getError() {
     if (this.props.error)
       return (<span className='error-message'><i className='fa fa-warning'/> {this.props.error}</span>);
+  }
+
+  getSubmitLoader() {
+    switch (this.props.getIcon) {
+      case LOADING:
+        return 'fa fa-spinner loading';
+      case SUCCESS:
+        return 'fa fa-check';
+      case FAILED:
+        return 'fa fa-times';
+      default:
+        return this.props.icon || 'fa fa-plus';
+    }
   }
 
   switchFormInput() {

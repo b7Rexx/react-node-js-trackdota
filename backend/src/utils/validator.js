@@ -1,4 +1,4 @@
-let joi = require('@hapi/joi');
+let JOI = require('@hapi/joi');
 
 /**
  * validate create user
@@ -6,14 +6,35 @@ let joi = require('@hapi/joi');
  * @returns {*}
  */
 userValidate = (fields) => {
-  const schema = joi.object({
-    firstName: joi.string().max(255).required(),
-    lastName: joi.string().max(255).required(),
-    email: joi.string().max(255).email().required(),
-    password: joi.string().min(6).max(255).required(),
-  });
+  return new Promise(function (resolve, reject) {
+    let errorStatus = false;
+    let firstName = errorParser(JOI.string().max(255).required().validate(fields.firstName));
+    errorStatus = firstName.errorStatus ? true : errorStatus;
+    let lastName = errorParser(JOI.string().max(255).required().validate(fields.lastName));
+    errorStatus = lastName.errorStatus ? true : errorStatus;
+    let email = errorParser(JOI.string().max(255).email().required().validate(fields.email));
+    errorStatus = email.errorStatus ? true : errorStatus;
+    let password = errorParser(JOI.string().min(6).max(255).required().validate(fields.password));
+    errorStatus = password.errorStatus ? true : errorStatus;
 
-  return schema.validate(fields);
+    let errors = {
+      firstName: firstName.error,
+      lastName: lastName.error,
+      email: email.error,
+      password: password.error,
+    };
+    let values = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+    };
+
+    if (errorStatus)
+      reject(errors);
+    else
+      resolve(values);
+  });
 };
 
 /**
@@ -22,12 +43,27 @@ userValidate = (fields) => {
  * @returns {*}
  */
 loginValidate = (fields) => {
-  const schema = joi.object({
-    email: joi.string().email().required(),
-    password: joi.required(),
-  });
+  return new Promise(function (resolve, reject) {
+    let errorStatus = false;
+    let email = errorParser(JOI.string().email().required().validate(fields.email));
+    errorStatus = email.errorStatus ? true : errorStatus;
+    let password = errorParser(JOI.required().validate(fields.password));
+    errorStatus = password.errorStatus ? true : errorStatus;
 
-  return schema.validate(fields);
+    let errors = {
+      email: email.error,
+      password: password.error,
+    };
+    let values = {
+      email: email.value,
+      password: password.value,
+    };
+
+    if (errorStatus)
+      reject(errors);
+    else
+      resolve(values);
+  });
 };
 
 /**
@@ -36,15 +72,31 @@ loginValidate = (fields) => {
  * @returns {*}
  */
 tournamentValidate = (fields) => {
-  const schema = joi.object({
-    title: joi.string().required(),
-    detail: joi.string().allow(null, ''),
-    startDate: joi.date().allow(null, ''),
-    endDate: joi.date().allow(null, ''),
-    createdBy: joi.number().required(),
+  const schema = JOI.object({
+    title: JOI.string().required(),
+    detail: JOI.string().allow(null, ''),
+    startDate: JOI.date().allow(null, ''),
+    endDate: JOI.date().allow(null, ''),
+    createdBy: JOI.number().required(),
   });
 
   return schema.validate(fields);
+};
+
+/**
+ * returns value with error boolean message
+ * @param JOIObject
+ */
+errorParser = (JOIObject) => {
+  const {error, value} = JOIObject;
+  let errorMsg = null;
+  if (error)
+    errorMsg = error.details[0].message;
+  return {
+    errorStatus: !!error,
+    error: errorMsg,
+    value: value,
+  };
 };
 
 module.exports = {
