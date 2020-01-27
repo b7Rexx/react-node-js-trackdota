@@ -9,6 +9,8 @@ const MESSAGE = require('../constants');
 class AuthController {
 
   login = (req, res, next) => {
+    let fullUrl = req.protocol + '://' + req.get('host');
+    console.log('path >  >> ',fullUrl);
     validatorUtils.loginValidate(req.body)
       .then(value => {
         UsersQuery.findUserByEmail(value.email)
@@ -22,7 +24,7 @@ class AuthController {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
-                profileImage: user.profileImage,
+                profileImage: fullUrl+'/files/'+user.profileImage,
               };
               res.json({status: true, message: MESSAGE.LOGIN_SUCCESS, token: token, user: userData});
             }

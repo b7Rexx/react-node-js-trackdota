@@ -40,13 +40,13 @@ class Table extends Component {
         if (td.hasOwnProperty('action'))
           if (typeof this.props[td.action] === 'function') {
             if (tr.hasOwnProperty(td.key))
-              return <button className='btn btn-secondary btn-sm'
+              return <button className='btn btn-custom btn-sm'
                              onClick={(e) => this.props[td.action](e, tr[td.key])}>{td.name}</button>;
             else
-              return <button className='btn btn-secondary btn-sm'
+              return <button className='btn btn-custom btn-sm'
                              onClick={(e) => this.props[td.action](e)}>{td.name}</button>;
           }
-        return <button className='btn btn-secondary btn-sm'>{td.name}</button>;
+        return <button className='btn btn-custom btn-sm'>{td.name}</button>;
       default:
         return tr[td.key];
     }

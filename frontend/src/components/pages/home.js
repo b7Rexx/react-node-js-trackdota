@@ -5,7 +5,6 @@ class Home extends Component {
   render() {
     return (
       <>
-        <Header {...this.props}/>
         Home
       </>
     );

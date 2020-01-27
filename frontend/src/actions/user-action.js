@@ -25,14 +25,7 @@ export function clearLogin() {
  * @returns {{payload: *, type: *}}
  */
 export function registerValidation(formData, callback) {
-  let payload = {
-    data: formData,
-    error: {},
-    valid: true,
-    status: EMPTY
-  };
-
-  /**
+    /**
    * multipart parse to object
    * @type {object}
    */
@@ -40,6 +33,13 @@ export function registerValidation(formData, callback) {
   for (let pair of formData.entries()) {
     formValidation[pair[0]] = pair[1];
   }
+
+  let payload = {
+    data: formValidation,
+    error: {},
+    valid: true,
+    status: EMPTY
+  };
   // validation
   Object.keys(formValidation).forEach(function (value) {
     switch (value) {

@@ -37,3 +37,6 @@ coverage
 
 # Vim swp files
 *.swp
+
+# image files
+files

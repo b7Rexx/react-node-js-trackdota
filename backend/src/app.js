@@ -14,7 +14,7 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'files')));
+app.use('/files', express.static(path.join(__dirname, '../files')));
 
 
 app.use('/api', routes);

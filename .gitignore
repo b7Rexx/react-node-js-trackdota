@@ -16,7 +16,7 @@ node_modules
 .yarn-integrity
 
 # IntelliJ IDE
-../.idea
+/.idea
 
 # Build directory
 dist

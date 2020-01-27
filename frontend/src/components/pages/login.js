@@ -77,8 +77,7 @@ class Login extends Component {
                 <FormInput label='Remember Me' name='remember' error={propsError.remember} type='checkbox'
                            onChange={this.rememberChangeHandler}/>
                 <div className='form-submit'>
-                  <FormInput type='submit' icon='fa fa-key' getIcon={this.props.login.status} value='Login'
-                             className='login-button'/>
+                  <FormInput type='submit' icon='fa fa-key' getIcon={this.props.login.status} value='Login'/>
                 </div>
               </form>
               <br/>

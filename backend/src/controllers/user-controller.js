@@ -1,8 +1,9 @@
+const path = require('path');
 const bcryptUtils = require('./../utils/bcrypt');
 const validatorUtils = require('./../utils/validator');
+const multerUtils = require('../utils/multer');
+const filesUtils = require('../utils/files');
 const UserQuery = require('../queries/user-query');
-const multerUpload = require('../utils/multer');
-
 const MESSAGE = require('../constants');
 
 class UserController {
@@ -14,7 +15,15 @@ class UserController {
 
   create = (req, res, next) => {
 
-    let multerParse = multerUpload.single('profileImage');
+    /**
+     * remove error images in cron job to free temp space
+     */
+    // filesUtils.removeFilesFromFolder(multerUtils.multer_temp_path);
+
+    /**
+     * upload new register image
+     */
+    let multerParse = multerUtils.upload.single('profileImage');
     multerParse(req, res, (err) => {
       if (err)
         return next({status: 422, message: {error: err}});
@@ -40,6 +49,10 @@ class UserController {
                 UserQuery.createUser(value).then(([user, created]) => {
                     if (!created)
                       return next({status: 422, message: {email: MESSAGE.EMAIL_TAKEN}});
+                  /**
+                   * move successful image upload
+                   */
+                  filesUtils.moveFile(path.join(multerUtils.multer_temp_path, value.profileImage), path.join(multerUtils.multer_temp_path, '../', value.profileImage));
                     res.json({message: MESSAGE.USER_CREATED, newUserId: user.id});
                   }
                 );

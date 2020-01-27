@@ -47,6 +47,10 @@ class TournamentController {
         next(err);
       });
   };
+
+  detailById = (req, res, next) => {
+    res.send('OK');
+  };
 }
 
 module.exports = new TournamentController();

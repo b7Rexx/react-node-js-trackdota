@@ -93,8 +93,7 @@ class Register extends Component {
                   </div>
                 </div>
                 <div className='form-submit'>
-                  <FormInput type='submit' icon='fa fa-user-plus' getIcon={this.props.register.status}
-                             value='Register' className='login-button'/>
+                  <FormInput type='submit' icon='fa fa-user-plus' getIcon={this.props.register.status} value='Register'/>
                 </div>
               </form>
             </div>

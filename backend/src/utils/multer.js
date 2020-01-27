@@ -1,8 +1,9 @@
 const multer = require('multer');
 const path = require('path');
 
+const multer_temp_path = path.join(__dirname, '../../files/temp_multer');
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, '../files'),
+  destination: multer_temp_path,
   filename: function (req, file, cb) {
     /**
      * random file name for uniqueness
@@ -16,4 +17,8 @@ const upload = multer({
   limits: {fileSize: 1000000},
 });
 
-module.exports = upload;
+module.exports = {
+  multer,
+  upload,
+  multer_temp_path
+};

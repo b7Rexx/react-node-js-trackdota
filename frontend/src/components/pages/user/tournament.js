@@ -5,12 +5,14 @@ import {
   getUserTournaments,
   removeTournamentAction,
   tournamentValidate
-} from "../../actions/user-tournament";
-import {addTournament, removeTournament, userTournaments} from "../../api/server-fetch";
-import Table from "../react-component/table";
-import {FAILED, LOADING, SUCCESS} from "../../constants/status";
+} from "../../../actions/user-tournament";
+import {addTournament, removeTournament, userTournaments} from "../../../api/server-fetch";
+import {FAILED, LOADING, SUCCESS} from "../../../constants/status";
+import {USER_GAMES} from "../../../constants/routes";
+import Table from "../../react-component/table";
+import FormInput from "../../react-component/form-input";
 import "react-datepicker/dist/react-datepicker.css";
-import FormInput from "../react-component/form-input";
+import {formatRoute} from "react-router-named-routes";
 
 const mapStateToProps = state => {
   return {userTournament: state.userTournament};
@@ -44,7 +46,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-class UserTournament extends Component {
+class Tournament extends Component {
   componentDidMount() {
     if (this.props.userTournament.fetchStatus) {
       userTournaments().then(success => {
@@ -55,7 +57,7 @@ class UserTournament extends Component {
 
   editHandler(e, id) {
     e.preventDefault();
-    console.log('edit', id);
+    this.history.push(formatRoute(USER_GAMES, {tournamentId: id}));
   }
 
   removeHandler(e, id) {
@@ -118,4 +120,4 @@ class UserTournament extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserTournament);
+export default connect(mapStateToProps, mapDispatchToProps)(Tournament);

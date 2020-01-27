@@ -19,7 +19,9 @@ class Dropdown extends Component {
       <>
         <div className='dropdown'>
           <div className='dropdown-toggle'>
-            <i className={this.props.icon}/> {this.props.link}
+            <i className={this.props.icon}/>
+            <img className='dropdown-image' src={this.props.image} alt=""/>
+            {this.props.link}
           </div>
           <div className='dropdown-menu'>
             {this.getDropdownContent()}

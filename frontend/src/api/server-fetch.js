@@ -25,3 +25,7 @@ export function addTournament(inputData) {
 export function removeTournament(id) {
   return axiosFetchWithToken.delete('/tournament/' + id);
 }
+
+export function userGames() {
+  return axiosFetchWithToken.get('/tournament/');
+}

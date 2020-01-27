@@ -33,9 +33,12 @@ class Header extends Component {
       return (
         <ul className='navbar-nav'>
           <li>
-            <Dropdown icon='fa fa-user-circle-o'
-                      link={`${this.props.userInfo.firstName || ''} ${this.props.userInfo.lastName || ''}`}
-                      dropdownContent={userDropdown}/>
+            <Dropdown
+              icon={this.props.userInfo.profileImage ? '' : 'fa fa-user-circle-o'}
+              image={this.props.userInfo.profileImage ? this.props.userInfo.profileImage : ''}
+              link={`${this.props.userInfo.firstName || ''} ${this.props.userInfo.lastName || ''}`}
+              dropdownContent={userDropdown}
+            />
           </li>
         </ul>
       );
@@ -54,17 +57,16 @@ class Header extends Component {
   }
 
   render() {
-    console.log('render header');
     return (
       <div className='header'>
         <nav className='navbar navbar-expand-lg'>
           {/*<div className='collapse navbar-collapse'>*/}
-            <ul className='navbar-nav mr-auto'>
-              <NavItem to={HOME} className=''
-                       link={<figure className='logo'><img src={logoHeader} alt='logo'/></figure>}/>
-              {this.props.loginState ? this.getFavourite() : ''}
-            </ul>
-            {this.getUserHeader()}
+          <ul className='navbar-nav mr-auto'>
+            <NavItem to={HOME} className=''
+                     link={<figure className='logo'><img src={logoHeader} alt='logo'/></figure>}/>
+            {this.props.loginState ? this.getFavourite() : ''}
+          </ul>
+          {this.getUserHeader()}
           {/*</div>*/}
         </nav>
       </div>

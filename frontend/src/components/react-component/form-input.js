@@ -11,7 +11,7 @@ class FormInput extends Component {
   getInput(className) {
     if (this.props.type === 'submit')
       return (<button type={this.props.type || 'text'}
-                      className={className + ' ' + this.props.className || ''}
+                      className={className + ' ' + (this.props.className || 'btn-custom')}
                       id={this.props.label ? this.propsId : ''}
                       name={this.props.name}
                       defaultValue={this.props.defaultValue}
@@ -22,7 +22,7 @@ class FormInput extends Component {
       );
 
     return (<input type={this.props.type || 'text'}
-                   className={className + ' ' + this.props.className || ''}
+                   className={className + ' ' + (this.props.className || '')}
                    id={this.props.label ? this.propsId : ''}
                    name={this.props.name}
                    defaultValue={this.props.defaultValue}

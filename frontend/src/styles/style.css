@@ -76,12 +76,6 @@
 }
 
 .form-submit button {
-  background: var(--temp-color);
-  border: none;
-}
-
-.form-submit button:hover, .form-submit button:focus {
-  background: var(--light-color);
   border: none;
 }
 
@@ -126,6 +120,22 @@
   pointer-events: none;
 }
 
+.dropdown-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
 .table {
   color: var(--text-color);
+}
+
+.btn-custom {
+  color: var(--primary-color);
+  background: var(--temp-color);
+}
+
+.btn-custom:hover {
+  color: var(--primary-color);
+  background: var(--light-color);
 }

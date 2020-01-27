@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import Header from './layout/header';
 import Login from './pages/login';
 import Register from './pages/register';
-import Profile from "./pages/user-tournament";
+import Profile from "./pages/user/tournament";
+import Games from "./pages/user/games";
 import {connect} from 'react-redux';
-import {USER_LOGIN, USER_TOURNAMENT, USER_REGISTER} from "../constants/routes";
+import {USER_LOGIN, USER_TOURNAMENT, USER_REGISTER, USER_GAMES} from "../constants/routes";
 import {Redirect, Route} from "react-router-dom";
 
 const mapStateToProps = state => {
@@ -25,6 +26,9 @@ class User extends Component {
         </Route>
         <Route exact path={USER_TOURNAMENT}>
           {!this.props.loginState ? <Redirect to={USER_LOGIN}/> : <Profile {...this.props}/>}
+        </Route>
+        <Route exact path={USER_GAMES}>
+          {!this.props.loginState ? <Redirect to={USER_LOGIN}/> : <Games {...this.props}/>}
         </Route>
       </>);
   }
