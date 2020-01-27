@@ -2,7 +2,7 @@ import {axiosFetch, axiosFetchWithToken} from './axios.config';
 
 export function registerUser(inputData) {
   delete inputData.confirmPassword;
-  return axiosFetch.post('/users/create', inputData,{
+  return axiosFetch.post('/users/create', inputData, {
     headers: {
       'content-type': 'multipart/form-data;'
     }
@@ -26,6 +26,6 @@ export function removeTournament(id) {
   return axiosFetchWithToken.delete('/tournament/' + id);
 }
 
-export function userGames() {
-  return axiosFetchWithToken.get('/tournament/');
+export function userGames(id) {
+  return axiosFetchWithToken.get('/tournament/' + id);
 }

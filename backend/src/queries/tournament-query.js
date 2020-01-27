@@ -13,12 +13,14 @@ class TournamentQuery {
     return Tournament.create(insertData);
   };
 
+  findById = (id) => {
+    return Tournament.findOne({where: {id: id}});
+  };
+
   destroyById = (id) => {
     /**
      * remove all reference games before removing tournament
      */
-
-
     return Tournament.destroy({where: {id: id}});
   }
 }
