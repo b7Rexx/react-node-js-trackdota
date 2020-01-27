@@ -3,7 +3,7 @@ import Header from './layout/header';
 import Login from './pages/login';
 import Register from './pages/register';
 import Profile from "./pages/user/tournament";
-import Games from "./pages/user/games";
+import Games from "./pages/user/game";
 import {connect} from 'react-redux';
 import {USER_LOGIN, USER_TOURNAMENT, USER_REGISTER, USER_GAMES} from "../constants/routes";
 import {Redirect, Route} from "react-router-dom";

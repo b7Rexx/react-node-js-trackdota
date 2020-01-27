@@ -7,7 +7,7 @@ const mapStateToProps = state => {
 };
 
 
-class Games extends Component {
+class Game extends Component {
   componentDidMount() {
 console.log(this.props);
     // if (this.props.userGame.fetchStatus) {
@@ -26,4 +26,4 @@ console.log(this.props);
   }
 }
 
-export default connect(mapStateToProps)(Games);
+export default connect(mapStateToProps)(Game);
